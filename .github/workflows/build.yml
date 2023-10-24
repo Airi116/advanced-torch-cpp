@@ -41,4 +41,14 @@ jobs:
           # https://github.com/actions/runner/issues/2033
           chown -R $(id -u):$(id -g) $PWD
 
-   
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libopencv-dev
+
+      - name: Test building
+        run: |
+          make apps -j`nproc`
+
+      - name: Unit test
+      
