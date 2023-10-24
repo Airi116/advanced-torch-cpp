@@ -16,4 +16,16 @@ jobs:
         with:
           python-version: "3.x"
 
-    
+      - name: Apply pre-commit
+        uses: pre-commit/action@v3.0.0
+        with:
+          extra_args: --all-files
+
+  test-production:
+    runs-on: ubuntu-20.04
+    container:
+      image: xmba15/torch_cpp:1.12.1-ubuntu20.04
+
+    steps:
+      - uses: actions/checkout@v3
+       
