@@ -51,4 +51,6 @@ jobs:
           make apps -j`nproc`
 
       - name: Unit test
-      
+        continue-on-error: true
+        run: |
+          make unittest -j`nproc`
