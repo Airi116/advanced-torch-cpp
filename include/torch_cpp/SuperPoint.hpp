@@ -18,4 +18,12 @@ class CV_EXPORTS_W SuperPoint : public cv::Feature2D
  public:
     struct Param {
         // reduce input shapes can increase speed and reduce (GPU) memory consumption
-        // at the cost of accurac
+        // at the cost of accuracy
+        int imageHeight = 480;
+        int imageWidth = 640;
+
+        std::string pathToWeights = "";
+        int borderRemove = 4;
+        float confidenceThresh = 0.015;
+        int distThresh = 2;  // nms. set value <= 0 to deactivate nms
+    
