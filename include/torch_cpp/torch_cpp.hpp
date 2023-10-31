@@ -7,4 +7,8 @@
 
 #pragma once
 
-#include "SuperGlue.hp
+#include "SuperGlue.hpp"
+
+#include "SuperPoint.hpp"
+
+#include "Utility.hpp"
