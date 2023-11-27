@@ -12,4 +12,4 @@ python3 -m pip install -r $ROOT_DIR/scripts/superglue/SuperGluePretrainedNetwork
 
 cd $ROOT_DIR/data
 python3 $ROOT_DIR/scripts/superglue/jit_superglue_model.py
-python3 $ROOT_DIR/s
+python3 $ROOT_DIR/scripts/superglue/jit_superpoint_model.py
