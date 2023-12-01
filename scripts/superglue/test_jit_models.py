@@ -13,4 +13,8 @@ def get_args():
 
     parser = argparse.ArgumentParser("")
     parser.add_argument("--superpoint", "-sp", type=str, required=True)
-    parser.add_argumen
+    parser.add_argument("--superglue", "-sg", type=str, required=True)
+    parser.add_argument("--image0", "-i0", type=str, required=True)
+    parser.add_argument("--image1", "-i1", type=str, required=True)
+    parser.add_argument("--match_threshold", "-m", type=float, default=0.2)
+    parser.add_argument("--keypoint_threshold", 
