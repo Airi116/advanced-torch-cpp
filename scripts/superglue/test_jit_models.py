@@ -37,3 +37,13 @@ def main(args):
         for image_path in image_paths
     ]
 
+    images = [input[0] for input in input_data]
+    for image in images:
+        assert image is not None
+    inps = [input[1] for input in input_data]
+
+    batch_inp = torch.cat(inps, dim=0)
+    batch_result = superpoint(
+        {
+            "image": batch_inp,
+            "keypoi
