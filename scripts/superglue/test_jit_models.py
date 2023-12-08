@@ -27,4 +27,13 @@ def get_args():
 def main(args):
     image_paths = [args.image0, args.image1]
 
-    superpoi
+    superpoint = torch.jit.load(args.superpoint)
+    superglue = torch.jit.load(args.superglue)
+
+    input_data = [
+        read_image(
+            image_path, device="cpu", resize=[640, 480], rotation=0, resize_float=False
+        )
+        for image_path in image_paths
+    ]
+
