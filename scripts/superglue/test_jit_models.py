@@ -46,4 +46,11 @@ def main(args):
     batch_result = superpoint(
         {
             "image": batch_inp,
-            "keypoi
+            "keypoint_threshold": torch.Tensor([args.keypoint_threshold]),
+            "remove_borders": torch.LongTensor([args.remove_borders]),
+            "nms_radius": torch.LongTensor([args.nms_radius]),
+        }
+    )
+
+    for (key, val) in batch_result.items():
+        print
