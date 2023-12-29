@@ -53,4 +53,11 @@ def main(args):
     )
 
     for (key, val) in batch_result.items():
-        print
+        print(key, val[0].shape, val[0].dtype)
+
+    kptsList: List[List[cv2.KeyPoint]] = []
+    data = {}
+    for i in range(2):
+        data[f"image{i}_shape"] = torch.tensor([1, 1, *images[i].shape[:2]])
+        data[f"descriptors{i}"] = batch_result["descriptors"][i].unsqueeze(0)
+        data[f"keypoints
