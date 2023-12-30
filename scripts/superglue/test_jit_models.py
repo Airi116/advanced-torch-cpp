@@ -77,4 +77,13 @@ def main(args):
     for (key, val) in output.items():
         print(key, val.shape, val.dtype)
 
-    output["matches0"] = output["matches0"].squeeze(0)
+    output["matches0"] = output["matches0"].squeeze(0).tolist()
+    output["matching_scores0"] = output["matching_scores0"].squeeze(0).tolist()
+
+    matches: List[cv2.DMatch] = []
+    for i, (match_idx, score) in enumerate(
+        zip(output["matches0"], output["matching_scores0"])
+    ):
+        if match_idx < 0:
+            continue
+        
