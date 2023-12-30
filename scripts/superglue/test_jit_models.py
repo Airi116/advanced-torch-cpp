@@ -67,4 +67,14 @@ def main(args):
         for point in batch_result["keypoints"][i].tolist():
             new_keypoint = cv2.KeyPoint()
             new_keypoint.pt = (point[0], point[1])
-           
+            kpts.append(new_keypoint)
+        kptsList.append(kpts)
+    data["match_threshold"] = torch.Tensor([args.match_threshold])
+
+    output = superglue(data)
+
+    print("\n")
+    for (key, val) in output.items():
+        print(key, val.shape, val.dtype)
+
+    output["matches0"] = output["matches0"].squeeze(0)
