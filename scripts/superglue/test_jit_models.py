@@ -60,4 +60,11 @@ def main(args):
     for i in range(2):
         data[f"image{i}_shape"] = torch.tensor([1, 1, *images[i].shape[:2]])
         data[f"descriptors{i}"] = batch_result["descriptors"][i].unsqueeze(0)
-        data[f"keypoints
+        data[f"keypoints{i}"] = batch_result["keypoints"][i].unsqueeze(0)
+        data[f"scores{i}"] = batch_result["scores"][i].unsqueeze(0)
+
+        kpts = []
+        for point in batch_result["keypoints"][i].tolist():
+            new_keypoint = cv2.KeyPoint()
+            new_keypoint.pt = (point[0], point[1])
+           
