@@ -86,4 +86,14 @@ def main(args):
     ):
         if match_idx < 0:
             continue
-        
+        new_match = cv2.DMatch()
+        new_match.imgIdx = 1
+        new_match.queryIdx = i
+        new_match.trainIdx = match_idx
+        matches.append(new_match)
+
+    matched_image = cv2.drawMatches(
+        images[0].astype(np.uint8),
+        kptsList[0],
+        images[1].astype(np.uint8),
+     
