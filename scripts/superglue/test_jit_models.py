@@ -96,4 +96,13 @@ def main(args):
         images[0].astype(np.uint8),
         kptsList[0],
         images[1].astype(np.uint8),
-     
+        kptsList[1],
+        matches,
+        None,
+        flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS,
+    )
+    cv2.imwrite("matches.jpg", matched_image)
+
+
+if __name__ == "__main__":
+    main(get_args())
