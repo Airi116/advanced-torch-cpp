@@ -21,4 +21,17 @@ class SuperGlueImpl : public SuperGlue
     void match(cv::InputArray _queryDescriptors, const std::vector<cv::KeyPoint>& queryKeypoints,
                const cv::Size& querySize, cv::InputArray _trainDescriptors,
                const std::vector<cv::KeyPoint>& trainKeypoints, const cv::Size& trainSize,
-               CV_OUT std::vect
+               CV_OUT std::vector<cv::DMatch>& matches) const final;
+
+ private:
+    SuperGlue::Param m_param;
+    torch::Device m_device;
+    mutable torch::jit::script::Module m_module;
+};
+
+cv::Ptr<SuperGlue> SuperGlue::create(const Param& param)
+{
+    return cv::makePtr<SuperGlueImpl>(param);
+}
+
+SuperGlue
