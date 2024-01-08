@@ -42,4 +42,13 @@ SuperGlueImpl::SuperGlueImpl(const SuperGlue::Param& param)
         throw std::runtime_error("empty path to weights");
     }
     try {
-        m_module = torch::jit::load(m_param
+        m_module = torch::jit::load(m_param.pathToWeights);
+    } catch (const std::exception& e) {
+        INFO_LOG("%s", e.what());
+        exit(1);
+    }
+
+#if ENABLE_GPU
+    if (!torch::cuda::is_available() && m_param.gpuIdx >= 0) {
+        DEBUG_LOG("torch does not recognize cuda device so fall back to cpu...");
+        
