@@ -34,4 +34,12 @@ cv::Ptr<SuperGlue> SuperGlue::create(const Param& param)
     return cv::makePtr<SuperGlueImpl>(param);
 }
 
-SuperGlue
+SuperGlueImpl::SuperGlueImpl(const SuperGlue::Param& param)
+    : m_param(param)
+    , m_device(torch::kCPU)
+{
+    if (m_param.pathToWeights.empty()) {
+        throw std::runtime_error("empty path to weights");
+    }
+    try {
+        m_module = torch::jit::load(m_param
