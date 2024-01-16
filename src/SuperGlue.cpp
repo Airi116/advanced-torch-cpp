@@ -68,4 +68,11 @@ SuperGlueImpl::SuperGlueImpl(const SuperGlue::Param& param)
 
 void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv::KeyPoint>& queryKeypoints,
                           const cv::Size& querySize, cv::InputArray _trainDescriptors,
-                          const std::vector<cv::KeyPoint>& trai
+                          const std::vector<cv::KeyPoint>& trainKeypoints, const cv::Size& trainSize,
+                          CV_OUT std::vector<cv::DMatch>& matches) const
+{
+    torch::Dict<std::string, torch::Tensor> data;
+    data.insert(
+        "image0_shape",
+        torch::from_blob(
+            std::vector<float
