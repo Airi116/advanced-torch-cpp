@@ -63,4 +63,9 @@ SuperGlueImpl::SuperGlueImpl(const SuperGlue::Param& param)
         m_device = torch::Device(torch::kCUDA, m_param.gpuIdx);
     }
     m_module.eval();
-    m_module.to(m_d
+    m_module.to(m_device);
+}
+
+void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv::KeyPoint>& queryKeypoints,
+                          const cv::Size& querySize, cv::InputArray _trainDescriptors,
+                          const std::vector<cv::KeyPoint>& trai
