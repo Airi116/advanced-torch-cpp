@@ -81,4 +81,10 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
     data.insert(
         "image1_shape",
         torch::from_blob(
-            std::vector<float>{1, 1, static_cast<float>(trainSize.height), static_cas
+            std::vector<float>{1, 1, static_cast<float>(trainSize.height), static_cast<float>(trainSize.width)}.data(),
+            {4}, torch::kFloat)
+            .clone());
+    data.insert("match_threshold",
+                torch::from_blob(std::vector<float>{m_param.matchThreshold}.data(), {1}, torch::kFloat).clone());
+
+    int numQueryKeyPoints = queryKeypoints.size()
