@@ -103,4 +103,10 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
 
     std::vector<torch::Tensor> keyPointsList = {torch::zeros({1, numQueryKeyPoints, 2}),
                                                 torch::zeros({1, numTrainKeyPoints, 2})};
-    std::vector<torch::Tensor> scoresList = {torch::zeros({1, numQueryKeyPoints})
+    std::vector<torch::Tensor> scoresList = {torch::zeros({1, numQueryKeyPoints}),
+                                             torch::zeros({1, numTrainKeyPoints})};
+
+    for (int i = 0; i < numQueryKeyPoints; ++i) {
+        keyPointsList[0][0][i][0] = queryKeypoints[i].pt.y;
+        keyPointsList[0][0][i][1] = queryKeypoints[i].pt.x;
+        scoresL
