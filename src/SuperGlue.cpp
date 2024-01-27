@@ -87,4 +87,10 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
     data.insert("match_threshold",
                 torch::from_blob(std::vector<float>{m_param.matchThreshold}.data(), {1}, torch::kFloat).clone());
 
-    int numQueryKeyPoints = queryKeypoints.size()
+    int numQueryKeyPoints = queryKeypoints.size();
+    int numTrainKeyPoints = trainKeypoints.size();
+
+    std::vector<torch::Tensor> descriptorsList = {
+        torch::from_blob(_queryDescriptors.getMat().ptr<float>(),
+                         {1, numQueryKeyPoints, _queryDescriptors.getMat().cols}, torch::kFloat),
+        torch::from_blo
