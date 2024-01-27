@@ -98,4 +98,9 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
 
     for (int i = 0; i < 2; ++i) {
         descriptorsList[i] = descriptorsList[i].permute({0, 2, 1}).contiguous();
-        data.insert("descriptors" + std::to_string(i), std:
+        data.insert("descriptors" + std::to_string(i), std::move(descriptorsList[i]).to(m_device));
+    }
+
+    std::vector<torch::Tensor> keyPointsList = {torch::zeros({1, numQueryKeyPoints, 2}),
+                                                torch::zeros({1, numTrainKeyPoints, 2})};
+    std::vector<torch::Tensor> scoresList = {torch::zeros({1, numQueryKeyPoints})
