@@ -124,4 +124,11 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
     }
 
     torch::Tensor matches0;
-   
+    {
+        auto outputs =
+            c10::impl::toTypedDict<std::string, torch::Tensor>(m_module.forward({std::move(data)}).toGenericDict());
+        matches0 = outputs.at("matches0");
+        matches0 = matches0.detach().cpu();
+    }
+
+    for (int i = 0;
