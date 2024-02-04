@@ -131,4 +131,13 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
         matches0 = matches0.detach().cpu();
     }
 
-    for (int i = 0;
+    for (int i = 0; i < numQueryKeyPoints; ++i) {
+        if (matches0[0][i].item<std::int64_t>() < 0) {
+            continue;
+        }
+        cv::DMatch match;
+        match.imgIdx = 0;
+        match.queryIdx = i;
+        match.trainIdx = matches0[0][i].item<std::int64_t>();
+
+        ma
