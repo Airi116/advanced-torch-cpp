@@ -116,3 +116,12 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
         keyPointsList[1][0][i][0] = trainKeypoints[i].pt.y;
         keyPointsList[1][0][i][1] = trainKeypoints[i].pt.x;
         scoresList[1][0][i] = trainKeypoints[i].response;
+    }
+
+    for (int i = 0; i < 2; ++i) {
+        data.insert("keypoints" + std::to_string(i), std::move(keyPointsList[i]).to(m_device));
+        data.insert("scores" + std::to_string(i), std::move(scoresList[i]).to(m_device));
+    }
+
+    torch::Tensor matches0;
+   
