@@ -109,4 +109,10 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
     for (int i = 0; i < numQueryKeyPoints; ++i) {
         keyPointsList[0][0][i][0] = queryKeypoints[i].pt.y;
         keyPointsList[0][0][i][1] = queryKeypoints[i].pt.x;
-        scoresL
+        scoresList[0][0][i] = queryKeypoints[i].response;
+    }
+
+    for (int i = 0; i < numTrainKeyPoints; ++i) {
+        keyPointsList[1][0][i][0] = trainKeypoints[i].pt.y;
+        keyPointsList[1][0][i][1] = trainKeypoints[i].pt.x;
+        scoresList[1][0][i] = trainKeypoints[i].response;
