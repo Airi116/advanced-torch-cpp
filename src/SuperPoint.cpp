@@ -26,4 +26,17 @@ class SuperPointImpl : public SuperPoint
     explicit SuperPointImpl(const SuperPoint::Param& param);
 
     void detectAndCompute(cv::InputArray _image, cv::InputArray _mask, std::vector<cv::KeyPoint>& keyPoints,
-    
+                          cv::OutputArray _descriptors, bool useProvidedKeypoints) CV_OVERRIDE;
+
+    int descriptorSize() const CV_OVERRIDE
+    {
+        return 256;
+    }
+
+    int descriptorType() const CV_OVERRIDE
+    {
+        return CV_32F;
+    }
+
+ private:
+    SuperPoi
