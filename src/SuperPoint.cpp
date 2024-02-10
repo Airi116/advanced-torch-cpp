@@ -39,4 +39,15 @@ class SuperPointImpl : public SuperPoint
     }
 
  private:
-    SuperPoi
+    SuperPoint::Param m_param;
+    torch::Device m_device;
+    torch::jit::script::Module m_module;
+};
+
+cv::Ptr<SuperPoint> SuperPoint::create(const Param& param)
+{
+    return cv::makePtr<SuperPointImpl>(param);
+}
+
+SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
+   
