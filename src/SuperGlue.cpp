@@ -140,4 +140,7 @@ void SuperGlueImpl::match(cv::InputArray _queryDescriptors, const std::vector<cv
         match.queryIdx = i;
         match.trainIdx = matches0[0][i].item<std::int64_t>();
 
-        ma
+        matches.emplace_back(match);
+    }
+}
+}  // namespace _cv
