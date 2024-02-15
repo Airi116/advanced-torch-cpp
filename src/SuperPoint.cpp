@@ -61,4 +61,12 @@ SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
         throw std::runtime_error("empty path to weights");
     }
     try {
-        m_
+        m_module = torch::jit::load(m_param.pathToWeights);
+    } catch (const std::exception& e) {
+        INFO_LOG("%s", e.what());
+        exit(1);
+    }
+
+#if ENABLE_GPU
+    if (!torch::cuda::is_available() && m_param.gpuIdx >= 0) {
+        DEBUG_LOG("torch does not recog
