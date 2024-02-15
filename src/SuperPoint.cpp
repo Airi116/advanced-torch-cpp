@@ -69,4 +69,15 @@ SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
 
 #if ENABLE_GPU
     if (!torch::cuda::is_available() && m_param.gpuIdx >= 0) {
-        DEBUG_LOG("torch does not recog
+        DEBUG_LOG("torch does not recognize cuda device so fall back to cpu...");
+        m_param.gpuIdx = -1;
+    }
+#else
+    DEBUG_LOG("gpu option is not enabled...");
+    m_param.gpuIdx = -1;
+#endif
+
+    if (m_param.gpuIdx >= 0) {
+        torch::NoGradGuard no_grad;
+        m_device = torch::Device(torch::kCUDA, m_param.gpuIdx);
+    }
