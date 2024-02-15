@@ -50,4 +50,15 @@ cv::Ptr<SuperPoint> SuperPoint::create(const Param& param)
 }
 
 SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
-   
+    : m_param(param)
+    , m_device(torch::kCPU)
+{
+    if (m_param.imageHeight <= 0 || m_param.imageWidth <= 0) {
+        throw std::runtime_error("dimension must be more than 0");
+    }
+
+    if (m_param.pathToWeights.empty()) {
+        throw std::runtime_error("empty path to weights");
+    }
+    try {
+        m_
