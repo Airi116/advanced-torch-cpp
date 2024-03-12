@@ -81,3 +81,13 @@ SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
         torch::NoGradGuard no_grad;
         m_device = torch::Device(torch::kCUDA, m_param.gpuIdx);
     }
+    DEBUG_LOG("use device: %s", m_device.str().c_str());
+    m_module.eval();
+
+    if (!m_device.is_cpu()) {
+        m_module.to(m_device);
+    }
+}
+
+void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mask, std::vector<cv::KeyPoint>& keyPoints,
+     
