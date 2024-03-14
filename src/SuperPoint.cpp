@@ -90,4 +90,10 @@ SuperPointImpl::SuperPointImpl(const SuperPoint::Param& param)
 }
 
 void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mask, std::vector<cv::KeyPoint>& keyPoints,
-     
+                                      cv::OutputArray _descriptors, bool useProvidedKeypoints)
+{
+    cv::Mat image = _image.getMat();
+    cv::Mat mask = _mask.getMat();
+
+    if (image.empty() || image.depth() != CV_8U) {
+        CV_Error(cv::Error::StsBadArg, "image is empty or has incorrect
