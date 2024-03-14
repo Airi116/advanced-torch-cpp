@@ -106,4 +106,8 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
     torch::Dict<std::string, std::vector<torch::Tensor>> outputs;
     {
         cv::Mat buffer;
-      
+        cv::resize(image, buffer, cv::Size(m_param.imageWidth, m_param.imageHeight), 0, 0, cv::INTER_CUBIC);
+        buffer.convertTo(buffer, CV_32FC1, 1 / 255.);
+
+        auto x = torch::from_blob(buffer.ptr<float>(), {1, 1, m_param.imageHeight, m_param.imageWidth}, torch::kFloat);
+        x = x.set_
