@@ -96,4 +96,14 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
     cv::Mat mask = _mask.getMat();
 
     if (image.empty() || image.depth() != CV_8U) {
-        CV_Error(cv::Error::StsBadArg, "image is empty or has incorrect
+        CV_Error(cv::Error::StsBadArg, "image is empty or has incorrect depth (!=CV_8U)");
+    }
+
+    if (!mask.empty() && mask.type() != CV_8UC1) {
+        CV_Error(cv::Error::StsBadArg, "mask has incorrect type (!=CV_8UC1)");
+    }
+
+    torch::Dict<std::string, std::vector<torch::Tensor>> outputs;
+    {
+        cv::Mat buffer;
+      
