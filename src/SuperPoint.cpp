@@ -129,4 +129,14 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
         }
 
         outputs =
-            c10::impl::toTypedDict<std::string, std::vector<torch::Tensor>>(m_modu
+            c10::impl::toTypedDict<std::string, std::vector<torch::Tensor>>(m_module.forward({data}).toGenericDict());
+    }
+
+    // preparing mask
+    if (!mask.empty()) {
+        cv::resize(mask, mask, cv::Size(m_param.imageWidth, m_param.imageHeight), 0, 0, cv::INTER_NEAREST);
+    }
+
+    {
+        keyPoints.clear();
+        auto keyPointsT = std::move(outputs.at("k
