@@ -118,4 +118,8 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
         torch::Dict<std::string, torch::Tensor> data;
         data.insert("image", std::move(x));
         data.insert("keypoint_threshold",
-             
+                    torch::from_blob(std::vector<float>{m_param.confidenceThresh}.data(), {1}, torch::kFloat).clone());
+        data.insert(
+            "remove_borders",
+            torch::from_blob(std::vector<std::int64_t>{m_param.borderRemove}.data(), {1}, torch::kInt64).clone());
+        if (m_param.distT
