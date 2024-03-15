@@ -122,4 +122,11 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
         data.insert(
             "remove_borders",
             torch::from_blob(std::vector<std::int64_t>{m_param.borderRemove}.data(), {1}, torch::kInt64).clone());
-        if (m_param.distT
+        if (m_param.distThresh > 0) {
+            data.insert(
+                "nms_radius",
+                torch::from_blob(std::vector<std::int64_t>{m_param.distThresh}.data(), {1}, torch::kInt64).clone());
+        }
+
+        outputs =
+            c10::impl::toTypedDict<std::string, std::vector<torch::Tensor>>(m_modu
