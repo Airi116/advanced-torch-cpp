@@ -144,4 +144,12 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
         auto descriptorsT = std::move(outputs.at("descriptors")[0]);  // 256 x num_keypoints
         descriptorsT = descriptorsT.permute({1, 0}).contiguous();
 
-        if (!m_device.is
+        if (!m_device.is_cpu()) {
+            keyPointsT = keyPointsT.detach().cpu();
+            scoresT = scoresT.detach().cpu();
+            descriptorsT = descriptorsT.detach().cpu();
+        }
+
+        int numKeyPoints = keyPointsT.sizes()[0];
+        cv::Mat descriptors = cv::Mat(cv::Size(256, numKeyPoints), CV_32F);
+        std
