@@ -152,4 +152,9 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
 
         int numKeyPoints = keyPointsT.sizes()[0];
         cv::Mat descriptors = cv::Mat(cv::Size(256, numKeyPoints), CV_32F);
-        std
+        std::memcpy(descriptors.ptr<float>(), descriptorsT.data_ptr<float>(), sizeof(float) * descriptorsT.numel());
+
+        std::vector<int> keepIndices;
+        keepIndices.reserve(numKeyPoints);
+        for (int i = 0; i < numKeyPoints; ++i) {
+            int y = keyPoin
