@@ -163,4 +163,8 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
                 continue;
             }
             cv::KeyPoint newKeyPoint;
-            newKeyPoint.pt.x = x * static_cast<float>(image.cols)
+            newKeyPoint.pt.x = x * static_cast<float>(image.cols) / m_param.imageWidth;
+            newKeyPoint.pt.y = y * static_cast<float>(image.rows) / m_param.imageHeight;
+            newKeyPoint.response = scoresT[i].item<float>();
+            keyPoints.emplace_back(std::move(newKeyPoint));
+ 
