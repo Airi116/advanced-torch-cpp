@@ -157,4 +157,10 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
         std::vector<int> keepIndices;
         keepIndices.reserve(numKeyPoints);
         for (int i = 0; i < numKeyPoints; ++i) {
-            int y = keyPoin
+            int y = keyPointsT[i][1].item<float>();
+            int x = keyPointsT[i][0].item<float>();
+            if (!mask.empty() && mask.ptr<uchar>(y)[x] == 0) {
+                continue;
+            }
+            cv::KeyPoint newKeyPoint;
+            newKeyPoint.pt.x = x * static_cast<float>(image.cols)
