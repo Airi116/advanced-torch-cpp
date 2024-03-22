@@ -167,4 +167,12 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
             newKeyPoint.pt.y = y * static_cast<float>(image.rows) / m_param.imageHeight;
             newKeyPoint.response = scoresT[i].item<float>();
             keyPoints.emplace_back(std::move(newKeyPoint));
- 
+            keepIndices.emplace_back(i);
+        }
+
+        _descriptors.create(cv::Size(256, keepIndices.size()), CV_32F);
+        std::memcpy(_descriptors.getMat().ptr<float>(), ::copyRows(descriptors, keepIndices).clone().ptr<float>(),
+                    sizeof(float) * keepIndices.size() * 256);
+    }
+}
+} 
