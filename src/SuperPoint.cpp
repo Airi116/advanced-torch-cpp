@@ -175,4 +175,15 @@ void SuperPointImpl::detectAndCompute(cv::InputArray _image, cv::InputArray _mas
                     sizeof(float) * keepIndices.size() * 256);
     }
 }
-} 
+}  // namespace _cv
+
+namespace
+{
+cv::Mat copyRows(const cv::Mat& src, const std::vector<int>& indices)
+{
+    int newNumRows = indices.size();
+    cv::Mat dst(0, newNumRows, src.type());
+    for (int i = 0; i < newNumRows; ++i) {
+        dst.push_back(src.row(indices[i]));
+    }
+ 
