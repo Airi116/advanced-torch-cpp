@@ -186,4 +186,6 @@ cv::Mat copyRows(const cv::Mat& src, const std::vector<int>& indices)
     for (int i = 0; i < newNumRows; ++i) {
         dst.push_back(src.row(indices[i]));
     }
- 
+    return dst;
+}
+}  // namespace
