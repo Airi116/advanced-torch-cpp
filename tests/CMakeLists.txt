@@ -29,4 +29,10 @@ add_test(
   NAME
     ${PROJECT_NAME}_unit_tests
   COMMAND
-    $<TARGET_FILE:${PROJECT_NAME
+    $<TARGET_FILE:${PROJECT_NAME}_unit_tests>
+)
+
+target_include_directories(${PROJECT_NAME}_unit_tests
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
