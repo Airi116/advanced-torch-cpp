@@ -11,4 +11,13 @@
 
 #include "config.h"
 
-TEST(TestSuperGlue, TestInit
+TEST(TestSuperGlue, TestInitializationFailure)
+{
+    _cv::SuperGlue::Param param;
+    EXPECT_ANY_THROW({ cv::Ptr<_cv::SuperGlue> superGlue = _cv::SuperGlue::create(param); });
+}
+
+TEST(TestSuperGlue, TestInitializationSuccess)
+{
+    _cv::SuperGlue::Param param;
+    param.pathToWeights = std::string(DATA_PATH) + "/su
