@@ -9,4 +9,24 @@ if (NOT TARGET gtest)
 endif()
 
 set(DATA_PATH "${PROJECT_SOURCE_DIR}/data")
-configure_file (conf
+configure_file (config.h.in config.h @ONLY)
+
+add_executable(
+  ${PROJECT_NAME}_unit_tests
+  TestSuperGlue.cpp
+  TestSuperPoint.cpp
+)
+
+target_link_libraries(
+  ${PROJECT_NAME}_unit_tests
+  PUBLIC
+    ${LIBRARY_NAME}
+  PRIVATE
+    gtest_main
+)
+
+add_test(
+  NAME
+    ${PROJECT_NAME}_unit_tests
+  COMMAND
+    $<TARGET_FILE:${PROJECT_NAME
