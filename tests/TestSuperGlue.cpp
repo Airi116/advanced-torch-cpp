@@ -20,4 +20,6 @@ TEST(TestSuperGlue, TestInitializationFailure)
 TEST(TestSuperGlue, TestInitializationSuccess)
 {
     _cv::SuperGlue::Param param;
-    param.pathToWeights = std::string(DATA_PATH) + "/su
+    param.pathToWeights = std::string(DATA_PATH) + "/superglue_model.pt";
+    EXPECT_NO_THROW({ cv::Ptr<_cv::SuperGlue> superGlue = _cv::SuperGlue::create(param); });
+}
